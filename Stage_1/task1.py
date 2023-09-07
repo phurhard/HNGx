@@ -1,12 +1,12 @@
 #!/usr/bin/python
-from flask import Flask, jsonify, Blueprint
+from flask import Flask, jsonify,request, Blueprint
 from os import getenv
 from datetime import timedelta, datetime
 
 
 app = Flask(__name__)
-app_views = Blueprint("app_views", __name__, url_prefix="/api")
-
+app_views = Blueprint("app_views", __name__, url_prefix="")
+app.json.sort_keys = False
 @app_views.route('/status', methods=['GET'], strict_slashes=False)
 def status() -> str:
     """ GET /api/v1/status
@@ -16,18 +16,19 @@ def status() -> str:
     return jsonify({"status": "OK"})
 
 
-@app_views.route('/<slack_name>/<track>', methods=['GET'], strict_slashes=False)
-def stats(slack_name, track) -> str:
+@app_views.route('/api', methods=['GET'], strict_slashes=False)
+def stats() -> str:
     """ GET /api/v1/stats
     Return:
       - the parameters of the user and track
     """
+    print(request.args)
 
-    name = slack_name
+    name = request.args.get('slack_name')
     day = datetime.now().strftime("%A")
     time = datetime.utcnow()
     current_time = time.strftime('%Y-%m-%dT%H:%M:%SZ')
-    Track = track
+    Track = request.args.get('track')
     github_url_file = 'https://github.com/phurhard/HNGx/blob/main/Stage_1/task1.py'
     github_url_repo = 'https://github.com/phurhard/HNGx/tree/main'
     status_code = 200
