@@ -5,6 +5,7 @@
         * The endpoint should take two GET request query parameters and return specific information in JSON format
 
 ```
+```
 {
 'slack_name': slack_name,
 'current_day': 'Thursday',
