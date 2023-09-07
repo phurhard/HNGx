@@ -13,7 +13,7 @@
 'track': 'backend',
 'github_file_url: 'https://github...',
 'github_repo_url': 'https://github...',
-'status_vode': 200
+'status_code': 200
 }
 
 ```
